@@ -16,7 +16,7 @@ class Product(models.Model):
 class Category(models.Model):
     name = models.CharField('name', max_length=200, unique=True)
     off_identifier = models.CharField('off_identifier', max_length=200)
-    products = models.ManyToManyField(Product, related_name='categories', blank=True)
+    products = models.ManyToManyField('Product', related_name='categories', blank=True)
 
     class Meta:
         verbose_name = "categorie"
