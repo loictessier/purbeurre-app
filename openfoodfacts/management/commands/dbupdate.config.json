@@ -1,0 +1,24 @@
+{
+    "categories": [
+        {
+            "name": "Boissons gazeuses",
+            "id": "Boissons gazeuses"
+        },
+        {
+            "name": "Pates a tartiner",
+            "id": "Pates a tartiner"
+        },
+        {
+            "name": "Chips",
+            "id": "Chips"
+        },
+        {
+            "name": "Desserts glaces",
+            "id": "Desserts glaces"
+        },
+        {
+            "name": "Pizzas tartes salees et quiches",
+            "id": "Pizzas tartes salees et quiches"
+        }
+    ]
+}
