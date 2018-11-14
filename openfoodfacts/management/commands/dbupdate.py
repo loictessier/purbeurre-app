@@ -76,6 +76,7 @@ class Command(BaseCommand):
                             params=payload)
                 resp = resp.json()
                 for p in resp['products']:
+                    cpt = 0
                     # insert products retrieved
                     # TODO validation sur nom, url_img (regex url valide ou requests.get et code 200), img_nutrinfo_url
                     try:
@@ -87,6 +88,9 @@ class Command(BaseCommand):
                             off_url=p['url'],
                             category=category)
                         product.save()
+                        cpt += 1
+                        if cpt >= 50:
+                            break
                     except KeyError as err:
                         print("Invalid product - missing informations")
                     except IntegrityError as err:
