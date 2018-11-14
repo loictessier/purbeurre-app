@@ -9,6 +9,7 @@ requests = "*"
 "pep8" = "*"
 pylint = "*"
 django = "*"
+pillow = "*"
 
 [dev-packages]
 
