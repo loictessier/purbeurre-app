@@ -8,7 +8,7 @@ class Product(models.Model):
     img_url = models.URLField('img_url', max_length=2100, null=True)
     off_url = models.URLField('off_url', max_length=2100, null=True)
     category = models.ForeignKey('Category', related_name='products', on_delete=models.CASCADE)
-    
+
     class Meta:
         verbose_name = "aliment"
 

@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "C:\\Users\\loic.tessier\\.virtualenvs\\purbeurre-app-Ih5IY7zh\\Scripts\\python.exe"
+    "python.pythonPath": "C:\\Users\\loic.tessier\\.virtualenvs\\purbeurre-app-Ih5IY7zh\\Scripts\\python.exe",
+    "python.linting.enabled": false
 }

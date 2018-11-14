@@ -8,6 +8,7 @@ name = "pypi"
 requests = "*"
 "pep8" = "*"
 pylint = "*"
+pillow = "*"
 
 [dev-packages]
 
