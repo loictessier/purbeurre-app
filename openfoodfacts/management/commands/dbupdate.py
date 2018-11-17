@@ -65,7 +65,7 @@ class Command(BaseCommand):
             "tag_contains_1": "contains",
             "tag_1": "",
             "sort_by": "unique_scans_n",
-            "page_size": "1000",
+            "page_size": "500",
             "json": "1"
         }
         for category in Category.objects.all():

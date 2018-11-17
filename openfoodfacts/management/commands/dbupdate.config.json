@@ -19,6 +19,26 @@
         {
             "name": "Pizzas tartes salees et quiches",
             "id": "Pizzas tartes salees et quiches"
+        },
+        {
+            "name": "Biscuits et gâteaux",
+            "id": "Biscuits et gâteaux"
+        },
+        {
+            "name": "Viandes",
+            "id": "Viandes"
+        },
+        {
+            "name": "Fromages",
+            "id": "Fromages"
+        },
+        {
+            "name": "Sauces",
+            "id": "Sauces"
+        },
+        {
+            "name": "Pains",
+            "id": "Pains"
         }
     ]
 }
