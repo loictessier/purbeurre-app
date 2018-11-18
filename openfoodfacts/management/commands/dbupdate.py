@@ -65,7 +65,7 @@ class Command(BaseCommand):
             "tag_contains_1": "contains",
             "tag_1": "",
             "sort_by": "unique_scans_n",
-            "page_size": "200",
+            "page_size": "500",
             "json": "1"
         }
         for category in Category.objects.all():
@@ -92,9 +92,16 @@ class Command(BaseCommand):
                         if cpt >= 50:
                             break
                     except KeyError as err:
-                        print("Invalid product - missing informations")
+                        print("Invalid product - missing informations : ", self.get_product_summary(p))
                     except IntegrityError as err:
-                        print("Key already exists")
+                        print("Key already exists", p.get('product_name_fr'))
+
+    def get_product_summary(self, produit):
+        return "Produit = { name : " + produit.get('product_name_fr', "empty") \
+            + ", nutriscore : " + produit.get('nutrition_grades', "empty") \
+            + ", img_nutrinfo_url :" + produit.get('image_nutrition_url', "empty") \
+            +", img_url :" + produit.get('image_url', "empty") \
+            +", off_url :" + produit.get('url', "empty") + " }"
                     
                     
 
