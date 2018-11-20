@@ -22,7 +22,6 @@ from django.urls import path
 from user import views
 
 urlpatterns = [
-    url(r'^$', include('user.urls', namespace='user')),
-    url(r'^user/', include('user.urls', namespace='user')),
+    path('user/', include('user.urls', namespace='user')),
     path('content/', admin.site.urls),
 ]
