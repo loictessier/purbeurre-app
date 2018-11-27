@@ -31,7 +31,7 @@ def authentication(request):
 
 def view_logout(request):
     logout(request)
-    return redirect('/')
+    return redirect('user:authentication')
 
 
 def sign_up(request):
@@ -45,7 +45,7 @@ def sign_up(request):
             user = User.objects.create_user(email, email, password)
             profile = Profile(user=user)
             profile.save()
-            return redirect('/')
+            return redirect('user:authentication')
         else:
             error = True
     else:

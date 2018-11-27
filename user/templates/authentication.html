@@ -6,7 +6,7 @@
 
 {% if user.is_authenticated %}
 Vous êtes connecté, {{ user.username }} !
-<a href="/logout">logout</a>
+<a href="{% url 'user:logout' %}">logout</a>
 {% else %}
 <form method="post" action=".">
     {% csrf_token %}
