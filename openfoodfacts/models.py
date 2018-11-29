@@ -7,6 +7,7 @@ class Product(models.Model):
     img_nutrinfo_url = models.URLField('img_nutrinfo_url', max_length=2100, null=True)
     img_url = models.URLField('img_url', max_length=2100, null=True)
     off_url = models.URLField('off_url', max_length=2100, null=True)
+    popularity = models.IntegerField('popularity', null=True)
     category = models.ForeignKey('Category', related_name='products', on_delete=models.CASCADE)
 
     class Meta:

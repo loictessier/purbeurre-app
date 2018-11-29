@@ -81,12 +81,13 @@ class Command(BaseCommand):
                     # TODO validation sur nom, url_img (regex url valide ou requests.get et code 200), img_nutrinfo_url
                     try:
                         product = Product(
-                            name=p['product_name_fr'],
-                            nutriscore=p['nutrition_grades'],
-                            img_nutrinfo_url=p['image_nutrition_url'],
-                            img_url=p['image_url'],
-                            off_url=p['url'],
-                            category=category)
+                            name = p['product_name_fr'],
+                            nutriscore = p['nutrition_grades'],
+                            img_nutrinfo_url = p['image_nutrition_url'],
+                            img_url = p['image_url'],
+                            off_url = p['url'],
+                            popularity = p['unique_scans_n'],
+                            category = category)
                         product.save()
                         cpt += 1
                         if cpt >= 50:
@@ -101,7 +102,8 @@ class Command(BaseCommand):
             + ", nutriscore : " + produit.get('nutrition_grades', "empty") \
             + ", img_nutrinfo_url :" + produit.get('image_nutrition_url', "empty") \
             +", img_url :" + produit.get('image_url', "empty") \
-            +", off_url :" + produit.get('url', "empty") + " }"
+            +", off_url :" + produit.get('url', "empty") \
+            +", popularity :" + str(produit.get('unique_scans_n', "empty")) + " }"
                     
                     
 
