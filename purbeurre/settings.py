@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'openfoodfacts',
     'favorite',
     'user',
+    'core',
 ]
 
 MIDDLEWARE = [

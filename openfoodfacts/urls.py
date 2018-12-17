@@ -5,6 +5,6 @@ from . import views
 app_name = 'openfoodfacts'
 
 urlpatterns = [
-    path('/', views.search, name='search'),
+    path('', views.index, name='index'),
     path('results/', views.results, name='results')
 ]

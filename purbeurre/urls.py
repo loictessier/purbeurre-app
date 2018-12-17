@@ -20,8 +20,10 @@ from django.contrib import admin
 from django.urls import path
 
 from user import views
+from openfoodfacts import views
 
 urlpatterns = [
+    path('', include('openfoodfacts.urls', namespace='openfoodfacts')),
     path('user/', include('user.urls', namespace='user')),
     path('content/', admin.site.urls),
 ]
