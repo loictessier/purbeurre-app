@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from .models import Product
+from .models import Product, Category
 
 import json
+import re
 
 
 # Create your views here.
@@ -34,9 +35,19 @@ def results(request):
         #search for substitutes
         input = request.GET['search_input']
         # remove la partie crochet du nom
-        # recherche par nom (cas possible ou aucune suggestion n'est utilisée)
-        # results = Product.objects.filter()
-        pass
+        input = re.sub('\[.*$', '', input)
+        # à partir du produit recherché s'il n'est pas null recherche des meilleurs substituts pour sa catégorie
+        search_product = Product.objects.filter(name__icontains=input).order_by('nutriscore').values('name','category')[:1]
+        results = []
+        if search_product:
+            # recherche par nom (cas possible ou aucune suggestion n'est utilisée)  
+            products = Product.objects.filter(category__id=search_product[0]['category']).order_by('nutriscore', 'popularity').values('name', 'nutriscore')[:10]
+            for pr in products:
+                results.append(pr['name'] + ' [' + pr['nutriscore'] +'] ')
+            search_product = search_product[0]['name']
+        else:
+            search_product = 'Pas de résultat'
+            # redirect to search form
     
     # return results template with substitute liste as results
-    return render(request, 'results.html', { 'results': input })
+    return render(request, 'results.html', {'search': search_product, 'results': results })

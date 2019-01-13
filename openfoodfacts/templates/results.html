@@ -1,1 +1,7 @@
-<p>Résultats de la recherche : {{ results }}</p>
+<p>Résultats de la recherche : {{ search }}</p>
+
+<ul>
+    {% for product in results %}
+    <li>{{ product }}</li>
+    {% endfor %}
+</ul>
