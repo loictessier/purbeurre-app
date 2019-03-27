@@ -41,13 +41,20 @@ def results(request):
         results = []
         if search_product:
             # recherche par nom (cas possible ou aucune suggestion n'est utilisée)  
-            products = Product.objects.filter(category__id=search_product[0]['category']).order_by('nutriscore', 'popularity').values('name', 'nutriscore')[:10]
-            for pr in products:
-                results.append(pr['name'] + ' [' + pr['nutriscore'] +'] ')
+            products = Product.objects.filter(category__id=search_product[0]['category']).order_by('nutriscore', 'popularity').values('name', 'nutriscore', 'pk')[:10]
             search_product = search_product[0]['name']
         else:
             search_product = 'Pas de résultat'
             # redirect to search form
     
     # return results template with substitute liste as results
-    return render(request, 'results.html', {'search': search_product, 'results': results })
+    return render(request, 'results.html', {'search': search_product, 'results': products })
+
+
+def product_detail(request):
+    if request.method == "GET":
+        product_id = request.GET['product_id']
+        if product_id:
+            pass
+
+    return render(request, 'detail.html', {'result': product_id})
