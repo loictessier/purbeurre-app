@@ -1,0 +1,29 @@
+version: "3"
+services:
+    postgres:
+        image: postgres:10.5
+        container_name: purbeurre-postgres
+        ports:
+            - 15432:5432
+        environment:
+            - POSTGRES_PASSWORD=adm_purbeurre
+            - POSTGRES_DB=purbeurre
+        volumes:
+            - purbeurre-postgres-data:/var/lib/postgresql/data
+
+    pgadmin:
+        image: dpage/pgadmin4
+        container_name: purbeurre-pgadmin
+        ports:
+            - 5050:80
+        links:
+            - postgres
+        environment:
+            - PGADMIN_DEFAULT_EMAIL=loictessier.inge@gmail.com
+            - PGADMIN_DEFAULT_PASSWORD=password
+        volumes:
+            - purbeurre-pgadmin-data:/var/lib/pgadmin
+            
+volumes:
+    purbeurre-postgres-data:
+    purbeurre-pgadmin-data:

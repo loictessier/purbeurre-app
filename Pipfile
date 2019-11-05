@@ -4,7 +4,6 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-"psycopg2" = "*"
 requests = "*"
 "pep8" = "*"
 pylint = "*"
@@ -14,4 +13,4 @@ pillow = "*"
 [dev-packages]
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
