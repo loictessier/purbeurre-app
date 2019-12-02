@@ -44,7 +44,8 @@ def results(request):
             products = Product.objects.filter(category__id=search_product[0]['category']).order_by('nutriscore', 'popularity').values('name', 'nutriscore', 'pk')[:10]
             search_product = search_product[0]['name']
         else:
-            search_product = 'Pas de résultat'
+            products = []
+            search_product = 'Pas de résultat(s)'
             # redirect to search form
     
     # return results template with substitute liste as results
