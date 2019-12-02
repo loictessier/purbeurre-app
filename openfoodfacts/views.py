@@ -9,7 +9,7 @@ import re
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'openfoodfacts/index.html')
 
 def get_products(request):
     # request.get => request.GET.get("term")
@@ -49,7 +49,7 @@ def results(request):
             # redirect to search form
     
     # return results template with substitute liste as results
-    return render(request, 'results.html', {'search': search_product, 'results': products })
+    return render(request, 'openfoodfacts/results.html', {'search': search_product, 'results': products })
 
 
 def product_detail(request):
@@ -58,4 +58,4 @@ def product_detail(request):
         if product_id:
             pass
 
-    return render(request, 'detail.html', {'result': product_id})
+    return render(request, 'openfoodfacts/detail.html', {'result': product_id})

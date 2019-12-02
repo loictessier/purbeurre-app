@@ -1,11 +1,14 @@
-<h1>S'inscrire</h1>
+{% extends "core/base.html" %}
+{% block content %}
+    <h1>S'inscrire</h1>
 
-{% if error %}
-<p><strong>Erreur lors de la création de compte.</strong></p>
-{% endif %}
+    {% if error %}
+        <p><strong>Erreur lors de la création de compte.</strong></p>
+    {% endif %}
 
-<form method="post" action="{% url 'user:signup' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="S'inscrire" />
-</form>
+    <form method="post" action="{% url 'user:signup' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="S'inscrire" />
+    </form>
+{% endblock %}

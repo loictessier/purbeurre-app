@@ -1,0 +1,25 @@
+{% extends "core/base.html" %}
+{% load staticfiles %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <h1 class="text-uppercase">
+                <strong>Du gras, oui, mais de qualité !</strong>
+            </h1>
+            <hr>
+        </div>
+        <div class="col-lg-8 mx-auto">
+            <p class="text-faded mb-5">Trouvez un produit de substitution pour ceux que vous consommez tous les
+                jours</p>
+            {% include "openfoodfacts/search.html" %}    
+        </div>
+    </div>
+
+    <!-- SECTION 2 : PRESENTATION HISTOIRE ET PERSONNAS -->
+    <!-- SECTION 3 : CONTACTEZ-NOUS -->
+    
+{% endblock %}
+{% block bottom_scripts %}
+{{ block.super }}
+<script src="{% static '/openfoodfacts/js/autocomplete.js' %}"></script>
+{% endblock %}
