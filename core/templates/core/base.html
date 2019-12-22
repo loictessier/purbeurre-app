@@ -5,6 +5,9 @@
 <head>
     <title>My Project</title>
     {% block top_scripts %}
+    <!-- Font Awesome icons-->
+    <link href="{% static 'core/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
     <!-- JQUERY CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" type="text/css" rel="stylesheet">
 
@@ -15,25 +18,25 @@
     <!-- Plugin CSS -->
     <link href="{% static 'core/vendor/magnific-popup/magnific-popup.css' %}" rel="stylesheet">
 
-    <!-- Custum Template CSS -->
-    <link href="{% static 'core/css/creative.css' %}" rel="stylesheet">
+    <!-- Custom Template CSS -->
+    <link href="{% static 'core/css/creative.min.css' %}" rel="stylesheet">
+
     {% endblock %}
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-        {% block nav %}
-            {% include "core/nav.html" %}
-        {% endblock nav %}
-    </nav>
-
-    <header class="masthead text-center text-white d-flex">
-        <div class="container my-auto">
-            {% block content %}{% endblock %}
-        </div>
-    </div>
+    {% block nav %}
+        {% include "core/nav.html" %}
+    {% endblock nav %}
+  
+    {% block content %}{% endblock %}
 
     <!-- FOOTER -->
+    <footer class="bg-light py-5">
+    <div class="container">
+      <div class="small text-center text-muted">Copyright &copy; Loïc Tessier</div>
+    </div>
+  </footer>
 
     {% block bottom_scripts %}
     <!-- JQUERY Javascript -->
@@ -41,17 +44,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js" type="text/javascript"></script>
 
     <!-- Bootstrap Javascript -->
-    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-        crossorigin="anonymous"></script> -->
     <script src="{% static 'core/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
     <!-- Plugin Javascript -->
     <script src="{% static 'core/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
-    <script src="{% static 'core/vendor/scrollreveal/scrollreveal.min.js' %}"></script>
     <script src="{% static 'core/vendor/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
 
     <!-- Custom template Javascript -->
     <script src="{% static 'core/js/creative.min.js' %}"></script>
+
+    <script src="{% static '/openfoodfacts/js/autocomplete.js' %}"></script>
+
     {% endblock %}
 </body>
 
