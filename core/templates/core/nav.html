@@ -1,33 +1,35 @@
+{% load staticfiles %}
+
 {% if index %}
 <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
 {% else %}
 <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 navbar-scrolled">
 {% endif %}
     <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="{% url 'openfoodfacts:index' %}">Pur Beurre</a>
+        <a class="navbar-brand js-scroll-trigger" href="{% url 'openfoodfacts:index' %}"><img class="fas mr-2" src="{% static 'core/img/portfolio/fullsize/logo.png' %}" width="50" height="50" />Pur Beurre</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
             aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                {% include "openfoodfacts/search.html" %}
+                {% include "openfoodfacts/search-nobutton.html" %}
                 {% if request.user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="">Mon Compte</a>
+                        <a class="nav-link js-scroll-trigger" href=""><i class="fas fa-user fa-2x"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="">Mes Aliments</a>
+                        <a class="nav-link js-scroll-trigger" href=""><i class="fas fa-carrot fa-2x"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="{% url 'user:logout' %}">Déconnexion</a>
+                        <a class="nav-link js-scroll-trigger" href="{% url 'user:logout' %}"><i class="fas fa-sign-out-alt fa-2x"></i></a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="{% url 'user:authentication' %}">Connexion</a>
+                        <a class="nav-link js-scroll-trigger" href="{% url 'user:authentication' %}"><i class="fas fa-sign-in-alt fa-2x"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="{% url 'user:signup' %}">Créer un compte</a>
+                        <a class="nav-link js-scroll-trigger" href="{% url 'user:signup' %}"><i class="fas fa-user-plus fa-2x"></i></a>
                     </li>
                 {% endif %}
             </ul>
