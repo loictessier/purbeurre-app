@@ -9,7 +9,7 @@ import re
 
 # Create your views here.
 def index(request):
-    return render(request, 'openfoodfacts/index.html')
+    return render(request, 'openfoodfacts/index.html', { 'index': True })
 
 def get_products(request):
     # request.get => request.GET.get("term")

@@ -1,0 +1,8 @@
+.navbar-nav {
+    display: table;
+}
+
+.navbar-nav > * {
+    vertical-align: middle;
+    display: table-cell
+}

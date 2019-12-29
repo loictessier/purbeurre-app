@@ -1,17 +1,23 @@
 {% extends "core/base.html" %}
 {% block content %}
-<p>Résultats de la recherche : {{ search }}</p>
 
-<ul>
-    {% for product in results %}
-    <li>
-        <form method="get" action="{% url 'openfoodfacts:detail' %}">
-            {{ product.name|add:" ["|add:product.nutriscore|add:"]" }}
-            <input type="hidden" name="product_id" value="{{product.pk}}">
-            <input type="submit" value="Détails">
-        </form>
-    </li>
+<section class="page-section">
+    <div class="container my-auto">
+            <p>Résultats de la recherche : {{ search }}</p>
 
-    {% endfor %}
-</ul>
+            <ul>
+                {% for product in results %}
+                <li>
+                    <form method="get" action="{% url 'openfoodfacts:detail' %}">
+                        {{ product.name|add:" ["|add:product.nutriscore|add:"]" }}
+                        <input type="hidden" name="product_id" value="{{product.pk}}">
+                        <input type="submit" value="Détails">
+                    </form>
+                </li>
+
+                {% endfor %}
+            </ul>
+    </div>
+</section>
+
 {% endblock %}
