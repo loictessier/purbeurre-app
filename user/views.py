@@ -25,7 +25,8 @@ def authentication(request):
 
     return render(request, 'authentication.html', {
         'form': form,
-        'error': error
+        'error': error,
+        'header': True
     })
 
 
@@ -53,5 +54,6 @@ def sign_up(request):
 
     return render(request, 'signup.html', {
         'form': form,
-        'error': error
+        'error': error,
+        'header': True
     })

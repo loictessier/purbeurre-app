@@ -1,20 +1,26 @@
 {% extends "core/base.html" %}
 {% block content %}
 
-    <h1>Se connecter</h1>
 
-    {% if error %}
-        <p><strong>Utilisateur inconnu ou mauvais de mot de passe.</strong></p>
-    {% endif %}
+<header class="masthead text-center text-white d-flex">
+    <div class="container my-auto">
+        <h1>Se connecter</h1>
 
-    {% if user.is_authenticated %}
-        Vous êtes connecté, {{ user.username }} !
-        <a href="{% url 'user:logout' %}">logout</a>
-    {% else %}
-        <form method="post" action=".">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Se connecter" />
-        </form>
-    {% endif %}
+        {% if error %}
+            <p><strong>Utilisateur inconnu ou mauvais de mot de passe.</strong></p>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+            Vous êtes connecté, {{ user.username }} !
+            <a href="{% url 'user:logout' %}">logout</a>
+        {% else %}
+            <form method="post" action=".">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Se connecter" />
+            </form>
+        {% endif %}
+    </div>
+</header>
+
 {% endblock %}
