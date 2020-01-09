@@ -30,11 +30,6 @@
         <div class="row mt-5">
             {% for product in results %}
             <div class="col-lg-4">
-                {% comment %} <form method="get" action="{% url 'openfoodfacts:detail' %}">
-                    {{ product.name|add:" ["|add:product.nutriscore|add:"]" }}
-                    <input type="hidden" name="product_id" value="{{product.pk}}">
-                    <input type="submit" value="Détails">
-                </form> {% endcomment %}
                 <a href="{% url 'openfoodfacts:detail' product_id=product.pk %}">
                     <div class="product-container">
                         <img src="{{ product.img_url }}" height="200" width="150">
