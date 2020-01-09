@@ -1,0 +1,28 @@
+.search-banner {
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.search_title {
+    background-color: #FFFFFF;
+    background-position: center;
+    text-align: center;
+    padding: 1em 0 1em 0
+}
+
+.results-section {
+    padding: 2rem 0;
+    text-align: center;
+}
+
+.product-container {
+    position: relative;
+    text-align: center;
+    color: #000000;
+}
+
+.top-right {
+    position: absolute;
+    top: -30px;
+    right: 75px;
+}

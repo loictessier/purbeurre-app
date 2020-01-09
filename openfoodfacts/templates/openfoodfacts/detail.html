@@ -1,17 +1,49 @@
 {% extends "core/base.html" %}
+{% load staticfiles%}
+
+{% block top_scripts%}
+{{ block.super }}
+<link href="{% static 'openfoodfacts/css/results.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
 
-<header class="masthead text-center text-white d-flex bg-primary">
+<section class="page-section bg-dark search-banner" style="background-image:url('{{ result.img_url }}')">
     <div class="container my-auto">
         <div class="row">
-            <p>Détail du produit</p>
+            <div class="col-lg-3 mx-auto">
+                <p class="search_title"> {{ result.name }} </p>
+            </div>
+        </div>
+   </div>
+</section>
 
-            <p>
-                {{ result }}
-            </p>
-
+<section class="results-section">
+    <div class="container my-auto">
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <img src="{{ result.img_nutrinfo_url }}">
+            </div>
+            <div class="col-lg-6 mx-auto">
+                {% if result.nutriscore == 'a' %}
+                    <img src="{% static 'openfoodfacts/img/nutriscore/detail-a.svg' %}">
+                {% elif result.nutriscore == 'b' %}
+                    <img src="{% static 'openfoodfacts/img/nutriscore/detail-b.svg' %}">
+                {% elif result.nutriscore == 'c' %}
+                    <img src="{% static 'openfoodfacts/img/nutriscore/detail-c.svg' %}">
+                {% elif result.nutriscore == 'd' %}
+                    <img src="{% static 'openfoodfacts/img/nutriscore/detail-d.svg' %}">
+                {% elif result.nutriscore == 'e' %}
+                    <img src="{% static 'openfoodfacts/img/nutriscore/detail-e.svg' %}">
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9 mx-auto mt-5">
+                <a class="btn btn-primary" href="{{ result.off_url }}" target="_blank">Voir la fiche d'OpenFoodFacts</a>
+            </div>
         </div>
     </div>
-</header>
+</section>
 
 {% endblock %}
