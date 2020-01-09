@@ -33,17 +33,7 @@
                 <a href="{% url 'openfoodfacts:detail' product_id=product.pk %}">
                     <div class="product-container">
                         <img src="{{ product.img_url }}" height="200" width="150">
-                        {% if product.nutriscore == 'a' %}
-                        <img class="top-right" src="{% static 'openfoodfacts/img/nutriscore/result-A.png' %}">
-                        {% elif product.nutriscore == 'b' %}
-                        <img class="top-right" src="{% static 'openfoodfacts/img/nutriscore/result-B.png' %}">
-                        {% elif product.nutriscore == 'c' %}
-                        <img class="top-right" src="{% static 'openfoodfacts/img/nutriscore/result-C.png' %}">
-                        {% elif product.nutriscore == 'd' %}
-                        <img class="top-right" src="{% static 'openfoodfacts/img/nutriscore/result-D.png' %}">
-                        {% elif product.nutriscore == 'e' %}
-                        <img class="top-right" src="{% static 'openfoodfacts/img/nutriscore/result-E.png' %}">
-                        {% endif %}
+                        <img class="top-right" src="{% static 'openfoodfacts/img/nutriscore/result/'|add:product.nutriscore|add:'.png' %}">
                     </div>
                     <div class="mb-4">{{ product.name|add:" ["|add:product.nutriscore|upper|add:"]" }}</div>
                 </a>

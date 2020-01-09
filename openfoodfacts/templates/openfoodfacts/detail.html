@@ -25,17 +25,7 @@
                 <img src="{{ result.img_nutrinfo_url }}">
             </div>
             <div class="col-lg-6 mx-auto">
-                {% if result.nutriscore == 'a' %}
-                    <img src="{% static 'openfoodfacts/img/nutriscore/detail-a.svg' %}">
-                {% elif result.nutriscore == 'b' %}
-                    <img src="{% static 'openfoodfacts/img/nutriscore/detail-b.svg' %}">
-                {% elif result.nutriscore == 'c' %}
-                    <img src="{% static 'openfoodfacts/img/nutriscore/detail-c.svg' %}">
-                {% elif result.nutriscore == 'd' %}
-                    <img src="{% static 'openfoodfacts/img/nutriscore/detail-d.svg' %}">
-                {% elif result.nutriscore == 'e' %}
-                    <img src="{% static 'openfoodfacts/img/nutriscore/detail-e.svg' %}">
-                {% endif %}
+                <img src="{% static 'openfoodfacts/img/nutriscore/detail/'|add:result.nutriscore|add:'.svg' %}">
             </div>
         </div>
         <div class="row">
