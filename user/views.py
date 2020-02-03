@@ -57,3 +57,19 @@ def sign_up(request):
         'error': error,
         'header': True
     })
+
+
+def account(request):
+    error = False
+
+    if request.user.is_authenticated:
+        user = User.objects.get(username=request.user.username)
+        profile = Profile.objects.get(user=user)
+    else:
+        profile = {}
+        error = True
+
+    return render(request, 'account.html', {
+        'profile': profile,
+        'error': error
+    })

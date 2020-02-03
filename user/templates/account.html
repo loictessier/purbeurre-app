@@ -1,0 +1,30 @@
+{% extends "core/base.html" %}
+{% load staticfiles%}
+
+{% block top_scripts%}
+{{ block.super }}
+<link href="{% static 'user/css/account.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<section class="page-section bg-dark account-banner" style="background-image:url('{{ profile.avatar.url }}')">
+    <div class="container my-auto">
+        <div class="row">
+            <div class="col-lg-3 mx-auto">
+                <p class="account-title">Ahoy {{ profile.user.username }} !</p>
+            </div>
+        </div>
+   </div>
+</section>
+
+<section>
+    <div class="container my-auto">
+        <div class="row">
+            <div class="col-lg-10">
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

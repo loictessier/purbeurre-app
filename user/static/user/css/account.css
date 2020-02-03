@@ -1,0 +1,11 @@
+.account-banner {
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.account-title {
+    background-color: #FFFFFF;
+    background-position: center;
+    text-align: center;
+    padding: 1em 0 1em 0
+}
