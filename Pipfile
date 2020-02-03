@@ -9,6 +9,7 @@ requests = "*"
 pylint = "*"
 django = "*"
 pillow = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 
