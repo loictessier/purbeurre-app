@@ -28,6 +28,7 @@ from openfoodfacts import views
 urlpatterns = [
     path('', include('openfoodfacts.urls', namespace='openfoodfacts')),
     path('user/', include('user.urls', namespace='user')),
+    path('favorites/', include('favorite.urls', namespace='favorite')),
     path('content/', admin.site.urls),
 ]
 

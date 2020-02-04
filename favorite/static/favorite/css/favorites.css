@@ -1,0 +1,23 @@
+.favorite_title {
+    background-color: #FFFFFF;
+    background-position: center;
+    text-align: center;
+    padding: 1em 0 0 0
+}
+
+.favorites-section {
+    padding: 2rem 0;
+    text-align: center;
+}
+
+.favorite-container {
+    position: relative;
+    text-align: center;
+    color: #000000;
+}
+
+.top-right {
+    position: absolute;
+    top: -30px;
+    right: 75px;
+}

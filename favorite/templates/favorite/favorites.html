@@ -1,0 +1,45 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block top_scripts%}
+{{ block.super }}
+<link href="{% static 'favorite/css/favorites.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+
+<section class="page-section bg-dark">
+    <div class="container my-auto">
+        <div class="row">
+            <div class="col-lg-3 mx-auto favorite_title">
+                <p class="search_title"> Mes produits favoris </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="favorites-section">
+    <div class="container">
+        <div class="row mt-5">
+            {% if status %}
+                {% for fav in favorites %}
+                <div class="col-lg-4">
+                    <a href="{% url 'openfoodfacts:detail' product_id=fav.product.pk %}">
+                        <div class="favorite-container">
+                            <img src="{{ fav.product.img_url }}" height="200" width="150">
+                            <img class="top-right" src="{% static 'openfoodfacts/img/nutriscore/result/'|add:fav.product.nutriscore|add:'.png' %}">
+                        </div>
+                        <div class="mb-4">{{ fav.product.name|add:" ["|add:fav.product.nutriscore|upper|add:"]" }}</div>
+                    </a>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-lg-12">Aucun produit(s) sauvegardé(s).</div>
+            {% endif %}
+        </div>
+   </div>
+</section>
+
+{% endblock %}
