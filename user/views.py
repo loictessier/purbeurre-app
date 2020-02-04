@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.urls import reverse
 
-from .forms import AuthenticationForm, SignUpForm
+from .forms import AuthenticationForm, SignUpForm, AccountForm
 from .models import Profile
 
 
@@ -65,11 +65,14 @@ def account(request):
     if request.user.is_authenticated:
         user = User.objects.get(username=request.user.username)
         profile = Profile.objects.get(user=user)
+        form = AccountForm(instance=user)
     else:
         profile = {}
         error = True
 
+
     return render(request, 'account.html', {
         'profile': profile,
+        'form': form,
         'error': error
     })

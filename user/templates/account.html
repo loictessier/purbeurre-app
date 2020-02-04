@@ -1,9 +1,5 @@
 {% extends "core/base.html" %}
-<<<<<<< HEAD
-{% load staticfiles%}
-=======
 {% load static %}
->>>>>>> dev
 
 {% block top_scripts%}
 {{ block.super }}
@@ -22,10 +18,14 @@
    </div>
 </section>
 
-<section>
+<section class="mt-5">
     <div class="container my-auto">
         <div class="row">
             <div class="col-lg-10">
+                <form action="{% url 'user:account' %}" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                </form>
             </div>
         </div>
     </div>
