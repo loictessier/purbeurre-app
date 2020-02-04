@@ -39,12 +39,12 @@ def sign_up(request):
     error = False
 
     if request.method == "POST":
-        form = SignUpForm(request.POST)
+        form = SignUpForm(request.POST, request.FILES)
         if form.is_valid():
             email = form.cleaned_data["email"]
             password = form.cleaned_data["password"]
             user = User.objects.create_user(email, email, password)
-            profile = Profile(user=user)
+            profile = Profile(user=user, avatar=request.FILES['avatar'])
             profile.save()
             return redirect('user:authentication')
         else:

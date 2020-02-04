@@ -8,6 +8,7 @@ class AuthenticationForm(forms.Form):
 
 
 class SignUpForm(forms.Form):
+    avatar = forms.FileField()
     email = forms.EmailField(label="Adresse email")
     password = forms.CharField(label="Mot de passe", widget=forms.PasswordInput)
     confirm_password = forms.CharField(label="Confirmer le mot de passe", widget=forms.PasswordInput)

@@ -10,7 +10,7 @@
             <p><strong>Erreur lors de la création de compte.</strong></p>
         {% endif %}
 
-        <form method="post" action="{% url 'user:signup' %}">
+        <form method="post" enctype="multipart/form-data" action="{% url 'user:signup' %}">
             {% csrf_token %}
             {{ form.as_p }}
             <input type="submit" value="S'inscrire" />
