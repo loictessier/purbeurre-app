@@ -44,7 +44,10 @@ def sign_up(request):
             email = form.cleaned_data["email"]
             password = form.cleaned_data["password"]
             user = User.objects.create_user(email, email, password)
-            profile = Profile(user=user, avatar=request.FILES['avatar'])
+            if request.FILES:
+                profile = Profile(user=user, avatar=request.FILES['avatar'])
+            else:
+                profile = Profile(user=user)
             profile.save()
             return redirect('user:authentication')
         else:
