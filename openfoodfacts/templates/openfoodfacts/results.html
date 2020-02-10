@@ -1,5 +1,6 @@
 {% extends "core/base.html" %}
 {% load static %}
+{% load favorite_filter %}
 
 {% block top_scripts%}
 {{ block.super }}
@@ -29,14 +30,21 @@
         </div>
         <div class="row mt-5">
             {% for product in results %}
-            <div class="col-lg-4">
+            <div class="col-lg-4 mb-4">
                 <a href="{% url 'openfoodfacts:detail' product_id=product.pk %}">
                     <div class="product-container">
                         <img src="{{ product.img_url }}" height="200" width="150">
                         <img class="top-right" src="{% static 'openfoodfacts/img/nutriscore/result/'|add:product.nutriscore|add:'.png' %}">
                     </div>
-                    <div class="mb-4">{{ product.name|add:" ["|add:product.nutriscore|upper|add:"]" }}</div>
+                    <div>{{ product.name|add:" ["|add:product.nutriscore|upper|add:"]" }}</div>
                 </a>
+                {% if request.user.is_authenticated %}
+                    {% if product|check_product_favorite:request.user %}
+                        <span>Sauvegardé</span>
+                    {% else %}
+                        <a class="add_favorite" href="{% url 'favorite:add_favorite' substitute_product_id=product.pk origin_product_id=search.pk %}"><i class="fas fa-save"></i> Sauvegarder</a>
+                    {% endif %}
+                {% endif %}
             </div>
             {% endfor %}
         </div>
@@ -47,8 +55,9 @@
 <p>'Aucun produit correspondant à la recherche n'a été trouvé'</p>
 {% endif %}
 
+{% endblock %}
 
-            
- 
-
+{% block bottom_scripts%}
+{{ block.super }}
+<script src="{% static '/favorite/js/favorite.js' %}"></script>
 {% endblock %}

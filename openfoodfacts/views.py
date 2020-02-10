@@ -37,7 +37,7 @@ def results(request):
         # remove la partie crochet du nom
         input = re.sub('\[.*$', '', input)
         # à partir du produit recherché s'il n'est pas null recherche des meilleurs substituts pour sa catégorie
-        search_product = Product.objects.filter(name__icontains=input).order_by('nutriscore').values('name','category', 'img_url')[:1]
+        search_product = Product.objects.filter(name__icontains=input).order_by('nutriscore').values('name','category', 'img_url', 'pk')[:1]
         if search_product:
             # recherche par nom (cas possible ou aucune suggestion n'est utilisée)  
             products = Product.objects.filter(category__id=search_product[0]['category']).order_by('nutriscore', 'popularity').values('name', 'nutriscore', 'pk', 'img_url')[:12]
