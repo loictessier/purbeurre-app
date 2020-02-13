@@ -52,7 +52,15 @@
 </section>
 
 {% else %}
-<p>'Aucun produit correspondant à la recherche n'a été trouvé'</p>
+<section class="results-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <p>Aucun produit correspondant à '{{ search.input }}' n'a été trouvé</p>
+            </div>
+        </div>
+    </div>
+</section>
 {% endif %}
 
 {% endblock %}

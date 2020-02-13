@@ -35,7 +35,7 @@ def results(request):
         #search for substitutes
         input = request.GET['search_input']
         # remove la partie crochet du nom
-        input = re.sub('\[.*$', '', input)
+        input = re.sub('\[.*$', '', input).strip()
         # à partir du produit recherché s'il n'est pas null recherche des meilleurs substituts pour sa catégorie
         search_product = Product.objects.filter(name__icontains=input).order_by('nutriscore').values('name','category', 'img_url', 'pk')[:1]
         if search_product:
@@ -46,7 +46,7 @@ def results(request):
         else:
             products = []
             search_product_status = False
-            search_product = {}
+            search_product = { 'input':input }
             # redirect to search form 
     
     # return results template with substitute liste as results
