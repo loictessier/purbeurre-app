@@ -6,8 +6,8 @@ from openfoodfacts.models import Product
 
 class Favorite(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    product = models.ForeignKey('openfoodfacts.Product', related_name="substitute", on_delete=models.CASCADE)
-    origin_product = models.ForeignKey('openfoodfacts.Product', related_name="origin_product", on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name="substitute", on_delete=models.CASCADE, verbose_name='Produit favoris')
+    origin_product = models.ForeignKey(Product, related_name="origin_product", on_delete=models.CASCADE, verbose_name='Produit remplacé')
 
     class Meta:
         verbose_name = "favori"
