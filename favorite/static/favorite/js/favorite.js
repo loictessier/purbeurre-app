@@ -1,15 +1,18 @@
 $(document).ready(function() {
-    $("a.add_favorite").on('click', function(event){
+    $("a.set_favorite").on('click', function(event){
         event.preventDefault();
         var link = $(this);
         var url = link.attr('href');
+
+        var html = { "save": "<i class=\"fas fa-save\"></i> Sauvegarder", "remove": "<i class=\"fas fa-trash-alt\"></i> Retirer des favoris"};
 
         $.ajax({
             url: url,
             dataType: 'json',
             success: function (data) {
                 if(data.status == 200){
-                    link.replaceWith('<span>Sauvegardé</span>');
+                    link.html(html[data.action]);
+                    link.attr('href', data.replace_url);
                 } else {
                     console.log(data);
                 }

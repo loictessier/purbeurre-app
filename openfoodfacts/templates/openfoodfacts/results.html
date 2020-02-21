@@ -40,9 +40,9 @@
                 </a>
                 {% if request.user.is_authenticated %}
                     {% if product|check_product_favorite:request.user %}
-                        <span>Sauvegardé</span>
+                        <a class="set_favorite" href="{% url 'favorite:remove_favorite' product_id=product.pk %}"><i class="fas fa-trash-alt"></i> Retirer des favoris</a>
                     {% else %}
-                        <a class="add_favorite" href="{% url 'favorite:add_favorite' substitute_product_id=product.pk origin_product_id=search.pk %}"><i class="fas fa-save"></i> Sauvegarder</a>
+                        <a class="set_favorite" href="{% url 'favorite:add_favorite' substitute_product_id=product.pk %}"><i class="fas fa-save"></i> Sauvegarder</a>
                     {% endif %}
                 {% endif %}
             </div>
