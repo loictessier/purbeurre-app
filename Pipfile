@@ -10,6 +10,7 @@ pylint = "*"
 django = "*"
 pillow = "*"
 psycopg2-binary = "*"
+selenium = "*"
 
 [dev-packages]
 
