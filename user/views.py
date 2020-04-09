@@ -15,13 +15,15 @@ def authentication(request):
         if form.is_valid():
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
-            user = authenticate(username=username, password=password)  # Nous vérifions si les données sont correctes
-            if user:  # Si l'objet renvoyé n'est pas None
-                login(request, user)  # nous connectons l'utilisateur
-            else:  # sinon une erreur sera affichée
+            try:
+                user = authenticate(username=username, password=password)
+                login(request, user)
+            except:
                 error = True
+        else:
+            error = True
     else:
-        form = AuthenticationForm()  
+        form = AuthenticationForm()
 
     return render(request, 'authentication.html', {
         'form': form,
@@ -71,6 +73,7 @@ def account(request):
         form = AccountForm(instance=user)
     else:
         profile = {}
+        form = {}
         error = True
 
 

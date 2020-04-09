@@ -7,13 +7,14 @@ from django.urls import reverse
 
 # Create your views here.
 def favorites(request):
+    status = False
+    favorites = {}
     if request.method == "GET":
-        current_profile = Profile.objects.get(user=request.user)
-        favorites = current_profile.favorite_set.all()
-        if favorites:
-            status = True
-        else:
-            status = False
+        if request.user.is_authenticated:
+            current_profile = Profile.objects.get(user=request.user)
+            favorites = current_profile.favorite_set.all()
+            if favorites:
+                status = True
 
     return render(request, 'favorite/favorites.html', { 'status': status, 'favorites': favorites })
 
@@ -21,9 +22,9 @@ def favorites(request):
 def add_favorite(request, substitute_product_id):
     if request.user.is_authenticated:
         current_profile = Profile.objects.get(user=request.user)
-        substitute_product = Product.objects.get(id=substitute_product_id)
 
         try:
+            substitute_product = Product.objects.get(id=substitute_product_id)
             favorite = Favorite(profile=current_profile, product=substitute_product)
             favorite.save()
             status = 200
@@ -43,10 +44,10 @@ def add_favorite(request, substitute_product_id):
 def remove_favorite(request, product_id):
     if request.user.is_authenticated:
         current_profile = Profile.objects.get(user=request.user)
-        favorite_product = Product.objects.get(id=product_id)
-        favorites = current_profile.favorite_set.filter(product=favorite_product)
-
+       
         try:
+            favorite_product = Product.objects.get(id=product_id)
+            favorites = current_profile.favorite_set.filter(product=favorite_product)
             favorites.delete()
             status = 200
             res = "Le produit a été retiré des favoris"

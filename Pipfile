@@ -11,6 +11,8 @@ django = "*"
 pillow = "*"
 psycopg2-binary = "*"
 selenium = "*"
+coverage = "*"
+model-mommy = "*"
 
 [dev-packages]
 
