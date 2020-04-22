@@ -29,13 +29,13 @@
             </div>
             <div class="row mt-5">
                 {% for product in results %}
-                <div class="col-lg-4 mb-4">
+                <div class="col-lg-4 mb-4 product">
                     <a href="{% url 'openfoodfacts:detail' product_id=product.pk %}">
                         <div class="product-container">
                             <img src="{{ product.img_url }}" height="200" width="150">
                             <img class="top-right" src="{% static 'openfoodfacts/img/nutriscore/result/'|add:product.nutriscore|add:'.png' %}">
                         </div>
-                        <div>{{ product.name|add:" ["|add:product.nutriscore|upper|add:"]" }}</div>
+                        <div id='product_name'>{{ product.name|add:" ["|add:product.nutriscore|upper|add:"]" }}</div>
                     </a>
                     {% if request.user.is_authenticated %}
                         {% if product.pk|check_product_favorite:request.user %}
@@ -47,7 +47,7 @@
                 </div>
                 {% endfor %}
             </div>
-    </div>
+        </div>
     </section>
 {% else %}
     <section class="results-section">
