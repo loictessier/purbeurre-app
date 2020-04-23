@@ -4,6 +4,7 @@ from django.urls import reverse
 
 from .models import Favorite
 from .views import favorites
+from .templatetags.favorite_filter import check_product_favorite
 
 from user.models import Profile
 from django.contrib.auth.models import User
@@ -124,6 +125,7 @@ class RemoveFavoriteTest(TestCase):
 
 # Test models
 class FavoriteTest(TestCase):
+    
     def test_favorite_creation(self):
         new_product = mommy.make(Product)
         new_favorite = mommy.make(Favorite, product=new_product)
@@ -131,3 +133,27 @@ class FavoriteTest(TestCase):
         self.assertEqual(new_favorite.__str__(), new_product.name)
 
 
+# Test templatetags
+class CheckProductFavoriteTest(TestCase):
+    
+    def setUp(self):
+        self.client = Client()
+        # create user
+        self.new_user = User.objects.create(username='test')
+        self.new_user.set_password('test')
+        self.new_user.save()
+        # create profile linked to user
+        self.new_profile = mommy.make(Profile, user=self.new_user)
+        # create some products
+        self.product1 = mommy.make(Product, name="Perrier", id=7)
+        self.product2 = mommy.make(Product, name="Beurre sans gluten", id=9)
+        # add some of the products as favorites
+        self.favorite1 = mommy.make(Favorite, profile=self.new_profile, product=self.product1)
+
+    def test_check_favorite_returns_true(self):
+        result = check_product_favorite(7, self.new_user)
+        self.assertTrue(result)
+
+    def test_check_favorite_returns_false(self):
+        result = check_product_favorite(9, self.new_user)
+        self.assertFalse(result)
