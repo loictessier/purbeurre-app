@@ -11,8 +11,8 @@
         {% endif %}
 
         {% if user.is_authenticated %}
-            Vous êtes connecté, {{ user.username }} !
-            <a href="{% url 'user:logout' %}">logout</a>
+            <span id='authentication_message'>Vous êtes connecté, {{ user.username }} !</span>
+            <a href="{% url 'user:logout' %}">Se déconnecter</a>
         {% else %}
             <form method="post" action=".">
                 {% csrf_token %}

@@ -11,7 +11,7 @@
         <div class="container my-auto">
             <div class="row">
                 <div class="col-lg-3 mx-auto favorite_title">
-                    <p class="search_title"> Mes produits favoris </p>
+                    <p class="title"> Mes produits favoris </p>
                 </div>
             </div>
         </div>
@@ -23,13 +23,13 @@
             <div class="row mt-5 fav-content">
                 {% if status %}
                     {% for fav in favorites %}
-                    <div class="col-lg-4 mb-4">
+                    <div class="col-lg-4 mb-4 favorite">
                         <a href="{% url 'openfoodfacts:detail' product_id=fav.product.pk %}">
                             <div class="favorite-container">
                                 <img src="{{ fav.product.img_url }}" height="200" width="150">
                                 <img class="top-right" src="{% static 'openfoodfacts/img/nutriscore/result/'|add:fav.product.nutriscore|add:'.png' %}">
                             </div>
-                            <div>{{ fav.product.name|add:" ["|add:fav.product.nutriscore|upper|add:"]" }}</div>
+                            <div class='favorite_name'>{{ fav.product.name|add:" ["|add:fav.product.nutriscore|upper|add:"]" }}</div>
                         </a>
                         <a class="remove_favorite" href="{% url 'favorite:remove_favorite' product_id=fav.product.pk %}"><i class="fas fa-trash-alt"></i> Retirer des favoris</a>
                     </div>
