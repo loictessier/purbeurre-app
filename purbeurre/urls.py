@@ -24,11 +24,13 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from user import views
 from openfoodfacts import views
+from core import views
 
 urlpatterns = [
     path('', include('openfoodfacts.urls', namespace='openfoodfacts')),
     path('user/', include('user.urls', namespace='user')),
     path('favorites/', include('favorite.urls', namespace='favorite')),
+    path('legals/', include('core.urls', namespace='core')),
     path('content/', admin.site.urls),
 ]
 
