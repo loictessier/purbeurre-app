@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.urls import reverse
 
 from .forms import AuthenticationForm, SignUpForm, AccountForm
 from .models import Profile
@@ -9,7 +8,6 @@ from .models import Profile
 
 def authentication(request):
     error = False
-    
     if request.method == "POST":
         form = AuthenticationForm(request.POST)
         if form.is_valid():
@@ -18,7 +16,7 @@ def authentication(request):
             try:
                 user = authenticate(username=username, password=password)
                 login(request, user)
-            except:
+            except Exception:
                 error = True
         else:
             error = True
@@ -75,7 +73,6 @@ def account(request):
         profile = {}
         form = {}
         error = True
-
 
     return render(request, 'account.html', {
         'profile': profile,

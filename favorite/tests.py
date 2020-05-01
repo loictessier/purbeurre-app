@@ -3,7 +3,6 @@ from model_mommy import mommy
 from django.urls import reverse
 
 from .models import Favorite
-from .views import favorites
 from .templatetags.favorite_filter import check_product_favorite
 
 from user.models import Profile
@@ -54,7 +53,7 @@ class AddFavoriteTest(TestCase):
         self.new_user.set_password('test')
         self.new_user.save()
         # create profile linked to user
-        new_profile = mommy.make(Profile, user=self.new_user)
+        self.new_profile = mommy.make(Profile, user=self.new_user)
         # create product
         self.product1 = mommy.make(Product, id=15, name="Perrier")
 
@@ -63,22 +62,22 @@ class AddFavoriteTest(TestCase):
         login = self.client.login(username='test', password='test')
         self.assertTrue(login)
         # test
-        response = self.client.get(reverse('favorite:add_favorite', kwargs={'substitute_product_id': 15 }))
+        response = self.client.get(reverse('favorite:add_favorite', kwargs={'substitute_product_id': 15}))
         content = json.loads(response.content)
         self.assertEqual(content['status'], 200)
 
     def test_add_favorite_authentication_error(self):
         # test
-        response = self.client.get(reverse('favorite:add_favorite', kwargs={'substitute_product_id': 15 }))
+        response = self.client.get(reverse('favorite:add_favorite', kwargs={'substitute_product_id': 15}))
         content = json.loads(response.content)
         self.assertEqual(content['status'], 401)
-    
+
     def test_add_favorite_error_duplicate_favorite(self):
         # fake user authenticated
         login = self.client.login(username='test', password='test')
         self.assertTrue(login)
         # test
-        response = self.client.get(reverse('favorite:add_favorite', kwargs={'substitute_product_id': 9 }))
+        response = self.client.get(reverse('favorite:add_favorite', kwargs={'substitute_product_id': 9}))
         content = json.loads(response.content)
         self.assertEqual(content['status'], 500)
 
@@ -95,7 +94,7 @@ class RemoveFavoriteTest(TestCase):
         new_profile = mommy.make(Profile, user=self.new_user)
         # create product
         self.product1 = mommy.make(Product, id=15, name="Perrier")
-          # add one product as favorites
+        # add one product as favorites
         mommy.make(Favorite, profile=new_profile, product=self.product1)
 
     def test_remove_favorite_delete_favorite(self):
@@ -103,13 +102,13 @@ class RemoveFavoriteTest(TestCase):
         login = self.client.login(username='test', password='test')
         self.assertTrue(login)
         # test
-        response = self.client.get(reverse('favorite:remove_favorite', kwargs={'product_id': 15 }))
+        response = self.client.get(reverse('favorite:remove_favorite', kwargs={'product_id': 15}))
         content = json.loads(response.content)
         self.assertEqual(content['status'], 200)
-    
+
     def test_remove_favorite_authentication_error(self):
         # test
-        response = self.client.get(reverse('favorite:remove_favorite', kwargs={'product_id': 15 }))
+        response = self.client.get(reverse('favorite:remove_favorite', kwargs={'product_id': 15}))
         content = json.loads(response.content)
         self.assertEqual(content['status'], 401)
 
@@ -118,14 +117,14 @@ class RemoveFavoriteTest(TestCase):
         login = self.client.login(username='test', password='test')
         self.assertTrue(login)
         # test
-        response = self.client.get(reverse('favorite:remove_favorite', kwargs={'product_id': 11 }))
+        response = self.client.get(reverse('favorite:remove_favorite', kwargs={'product_id': 11}))
         content = json.loads(response.content)
         self.assertEqual(content['status'], 500)
 
 
 # Test models
 class FavoriteTest(TestCase):
-    
+
     def test_favorite_creation(self):
         new_product = mommy.make(Product)
         new_favorite = mommy.make(Favorite, product=new_product)
@@ -135,7 +134,7 @@ class FavoriteTest(TestCase):
 
 # Test templatetags
 class CheckProductFavoriteTest(TestCase):
-    
+
     def setUp(self):
         self.client = Client()
         # create user

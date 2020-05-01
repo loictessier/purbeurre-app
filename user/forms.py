@@ -23,6 +23,7 @@ class SignUpForm(forms.Form):
                 "Le mot de passe et la confirmation du mot de passe ne correspondent pas"
             )
 
+
 class AccountForm(forms.ModelForm):
     class Meta:
         model = User

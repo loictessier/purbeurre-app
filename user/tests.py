@@ -1,17 +1,15 @@
 from django.test import TestCase, Client
-from unittest.mock import patch
 from model_mommy import mommy
 from django.urls import reverse
 
 from .models import Profile
-from .views import authentication
-from .forms import AuthenticationForm, SignUpForm, AccountForm
+from .forms import AuthenticationForm, SignUpForm
 from django.contrib.auth.models import User
 
 
 # Test views
 class AuthenticationTest(TestCase):
- 
+
     def setUp(self):
         self.client = Client()
         self.new_user = User.objects.create(username='test@test.test')
@@ -21,7 +19,7 @@ class AuthenticationTest(TestCase):
     def test_authentication_get(self):
         response = self.client.get(reverse('user:authentication'))
         self.assertFalse(response.context['error'])
- 
+
     def test_authentication_post_valid(self):
         response = self.client.post(reverse('user:authentication'), {
             'username': 'test@test.test',
@@ -79,10 +77,10 @@ class AccountTest(TestCase):
         self.new_user.set_password('test')
         self.new_user.save()
         # create fake profile linked to user
-        new_profile = mommy.make(Profile, user=self.new_user)
+        self.new_profile = mommy.make(Profile, user=self.new_user)
 
     def test_Account_valid(self):
-         # fake user authenticated
+        # fake user authenticated
         login = self.client.login(username='test@test.test', password='test')
         self.assertTrue(login)
         # test
@@ -90,7 +88,7 @@ class AccountTest(TestCase):
         self.assertFalse(response.context['error'])
 
     def test_account_invalid_not_authentified(self):
-         # test
+        # test
         response = self.client.get(reverse('user:account'))
         self.assertTrue(response.context['error'])
 

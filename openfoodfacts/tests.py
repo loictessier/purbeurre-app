@@ -3,10 +3,11 @@ from django.urls import resolve, reverse
 from django.http import HttpRequest
 from model_mommy import mommy
 
-from .views import index, product_detail, get_products, results
+from .views import index, get_products
 from .models import Category, Product
 
 import json
+
 
 # Test views
 class IndexTest(TestCase):
@@ -39,7 +40,7 @@ class GetProductsTest(TestCase):
                 self.GET = {
                     'term': query
                 }
-            
+
             def is_ajax(self):
                 return True
 
@@ -58,7 +59,7 @@ class GetProductsTest(TestCase):
                 self.GET = {
                     'term': query
                 }
-            
+
             def is_ajax(self):
                 return False
 
@@ -78,7 +79,7 @@ class ResultsTest(TestCase):
         mommy.make(Product, id=15, name="Badoit", nutriscore="A", category=c1)
         mommy.make(Product, id=11, name="orangina", nutriscore="E", category=c1)
         mommy.make(Product, id=55, name="Biscuit Bio", nutriscore="A", category=c2)
-    
+
     def test_results_returns_products(self):
         response = self.client.get(reverse('openfoodfacts:results'), {'search_input': 'Coca [E]'})
         self.assertEqual(len(response.context['results']), 4)
@@ -87,10 +88,9 @@ class ResultsTest(TestCase):
         self.assertTrue(response.context['status'])
 
     def test_results_returns_no_products(self):
-        response = self.client.get(reverse('openfoodfacts:results'), { 'search_input': 'not existing product' })
+        response = self.client.get(reverse('openfoodfacts:results'), {'search_input': 'not existing product'})
         self.assertEqual(len(response.context['results']), 0)
         self.assertFalse(response.context['status'])
-
 
 
 class ProductDetailTest(TestCase):
@@ -107,6 +107,7 @@ class ProductDetailTest(TestCase):
         response = self.client.get(reverse('openfoodfacts:detail', kwargs={'product_id': 1}))
         self.assertEqual(response.status_code, 404)
 
+
 # Test models
 class CategoryTest(TestCase):
     def test_category_creation(self):
@@ -117,9 +118,6 @@ class CategoryTest(TestCase):
 
 class ProductTest(TestCase):
     def test_product_creation(self):
-        new_category = mommy.make('openfoodfacts.Category')
         new_product = mommy.make('openfoodfacts.Product')
         self.assertTrue(isinstance(new_product, Product))
         self.assertEqual(new_product.__str__(), new_product.name)
-    
-

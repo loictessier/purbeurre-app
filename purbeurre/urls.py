@@ -15,16 +15,12 @@ Including another URLconf
 """
 
 from django.conf import settings
-from django.conf.urls import include, url
+from django.conf.urls import include
 from django.contrib import admin
 from django.urls import path
 
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-
-from user import views
-from openfoodfacts import views
-from core import views
 
 urlpatterns = [
     path('', include('openfoodfacts.urls', namespace='openfoodfacts')),
@@ -36,5 +32,3 @@ urlpatterns = [
 
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
- 
- 

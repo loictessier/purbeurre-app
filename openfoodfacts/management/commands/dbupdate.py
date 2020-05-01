@@ -1,4 +1,4 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from django.db.utils import IntegrityError
 from openfoodfacts.models import Category, Product
 
@@ -16,7 +16,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         Category.objects.all().delete()
         Product.objects.all().delete()
-        
+
         directory = path.dirname(__file__)
         config_file = path.join(directory, "dbupdate.config.json")
         with open(config_file) as json_data:
@@ -43,7 +43,7 @@ class Command(BaseCommand):
             if self._is_category_valid(category_dict):
                 category = Category(
                     name=category_dict['name'],
-                    off_identifier=re.sub(r'.*:', '', category['id']))
+                    off_identifier=re.sub(r'.*:', '', category_dict['id']))
                 category.save()
 
     def _is_category_valid(self, category_dict):
@@ -72,8 +72,7 @@ class Command(BaseCommand):
             for grade in NUTRITION_GRADES:
                 payload['tag_0'] = category.name
                 payload['tag_1'] = grade
-                resp = requests.get("https://fr.openfoodfacts.org/cgi/search.pl",
-                            params=payload)
+                resp = requests.get("https://fr.openfoodfacts.org/cgi/search.pl", params=payload)
                 resp = resp.json()
                 for p in resp['products']:
                     cpt = 0
@@ -81,29 +80,26 @@ class Command(BaseCommand):
                     # TODO validation sur nom, url_img (regex url valide ou requests.get et code 200), img_nutrinfo_url
                     try:
                         product = Product(
-                            name = p['product_name_fr'],
-                            nutriscore = p['nutrition_grades'],
-                            img_nutrinfo_url = p['image_nutrition_url'],
-                            img_url = p['image_url'],
-                            off_url = p['url'],
-                            popularity = p['unique_scans_n'],
-                            category = category)
+                            name=p['product_name_fr'],
+                            nutriscore=p['nutrition_grades'],
+                            img_nutrinfo_url=p['image_nutrition_url'],
+                            img_url=p['image_url'],
+                            off_url=p['url'],
+                            popularity=p['unique_scans_n'],
+                            category=category)
                         product.save()
                         cpt += 1
                         if cpt >= 50:
                             break
-                    except KeyError as err:
+                    except KeyError:
                         print("Invalid product - missing informations : ", self.get_product_summary(p))
-                    except IntegrityError as err:
+                    except IntegrityError:
                         print("Key already exists", p.get('product_name_fr'))
 
     def get_product_summary(self, produit):
         return "Produit = { name : " + produit.get('product_name_fr', "empty") \
             + ", nutriscore : " + produit.get('nutrition_grades', "empty") \
             + ", img_nutrinfo_url :" + produit.get('image_nutrition_url', "empty") \
-            +", img_url :" + produit.get('image_url', "empty") \
-            +", off_url :" + produit.get('url', "empty") \
-            +", popularity :" + str(produit.get('unique_scans_n', "empty")) + " }"
-                    
-                    
-
+            + ", img_url :" + produit.get('image_url', "empty") \
+            + ", off_url :" + produit.get('url', "empty") \
+            + ", popularity :" + str(produit.get('unique_scans_n', "empty")) + " }"

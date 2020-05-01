@@ -3,6 +3,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 import unittest
 
+
 class SearchSubstituteTest(unittest.TestCase):
 
     def setUp(self):
@@ -17,7 +18,8 @@ class SearchSubstituteTest(unittest.TestCase):
         self.assertIn('Pur beurre', self.browser.title)
 
         # users click on authenticate menu
-        authenticate_link = self.browser.find_element_by_class_name('fa-sign-in-alt')
+        authenticate_link = (self.browser
+                             .find_element_by_class_name('fa-sign-in-alt'))
         authenticate_link.click()
 
         # he notices the title says "Se connecter"
@@ -32,8 +34,9 @@ class SearchSubstituteTest(unittest.TestCase):
         password_box.send_keys(Keys.ENTER)
         time.sleep(1)
 
-        # he checks message says 'vous êtes connecté the he goes back on homepage
-        message = self.browser.find_element_by_id('authentication_message').text
+        # he checks message then he goes back on homepage
+        message = (self.browser
+                   .find_element_by_id('authentication_message').text)
         self.assertIn('Vous êtes connecté', message)
         homepage_link = self.browser.find_element_by_id('title')
         homepage_link.click()
@@ -52,22 +55,27 @@ class SearchSubstituteTest(unittest.TestCase):
         # he types "coca cola" in the search box
         searchbox.send_keys('coca-cola')
 
-        # when he hit enter, the page updates, and there are substitute products displayed and the banner product is coca-cola
+        # when he hit enter, the page updates, and there are substitute
+        # products displayed and the banner product is coca-cola
         searchbox.send_keys(Keys.ENTER)
         time.sleep(1)
 
-        search_product_name = self.browser.find_element_by_class_name('search_title')
+        search_product_name = (self.browser
+                               .find_element_by_class_name('search_title'))
         self.assertIn('Coca-Cola', search_product_name.text)
         results = self.browser.find_element_by_class_name('results-section')
         products = results.find_elements_by_class_name('product')
         self.assertTrue(len(products) > 0)
 
-        # when the user click on the first proposed substitute he is redirected to the product detail page
-        search_first_result_displayed_name = products[0].find_element_by_id('product_name').text
+        # when the user click on the first proposed substitute
+        # he is redirected to the product detail page
+        search_first_result_displayed_name = (
+            products[0].find_element_by_id('product_name').text)
         products[0].click()
         time.sleep(1)
 
-        product_name = self.browser.find_element_by_class_name('search_title').text
+        product_name = (self.browser
+                        .find_element_by_class_name('search_title').text)
         self.assertIn(product_name.upper(), search_first_result_displayed_name)
 
         # the user click on the save button
@@ -77,24 +85,27 @@ class SearchSubstituteTest(unittest.TestCase):
         delete_button = self.browser.find_element_by_class_name('set_favorite')
         self.assertIn('Retirer des favoris', delete_button.text)
 
-        # the user then goes on his favorites page and verify the product he saved is there
+        # the user then goes on his favorites page
+        # and verify the product he saved is there
         favorites_link = self.browser.find_element_by_class_name('fa-carrot')
         favorites_link.click()
         time.sleep(1)
         title = self.browser.find_element_by_class_name('title').text
         self.assertIn('Mes produits favoris', title)
         favorites = self.browser.find_elements_by_class_name('favorite')
-        self.assertIn(product_name.upper(), favorites[-1].find_element_by_class_name('favorite_name').text)
+        self.assertIn(
+            product_name.upper(),
+            favorites[-1].find_element_by_class_name('favorite_name').text)
 
-        # the user delete the product from his favorites and checks there are no products left in favorites
+        # the user delete the product from his favorites
+        # and checks there are no products left in favorites
         favorites_count = len(favorites)
-        delete_button = favorites[-1].find_element_by_class_name('remove_favorite')
+        delete_button = (favorites[-1]
+                         .find_element_by_class_name('remove_favorite'))
         delete_button.click()
         time.sleep(1)
         favorites = self.browser.find_elements_by_class_name('favorite')
         self.assertEqual(favorites_count - 1, len(favorites))
-
-
 
 
 if __name__ == '__main__':
