@@ -1,2 +1,2 @@
-release: python manage.py migrate && python manage.py init_food_db
+release: python manage.py migrate && python manage.py dbupdate
 web: gunicorn purbeurre.wsgi
