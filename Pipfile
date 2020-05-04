@@ -13,6 +13,8 @@ psycopg2-binary = "*"
 selenium = "*"
 coverage = "*"
 model-mommy = "*"
+gunicorn = "*"
+django-heroku = "*"
 
 [dev-packages]
 
