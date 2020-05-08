@@ -15,8 +15,8 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-            {% include "openfoodfacts/search-nobutton.html" %}
             <ul class="navbar-nav ml-auto">
+                {% include "openfoodfacts/search-nobutton.html" %}
                 {% if request.user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="{% url 'user:account' %}"><i class="fas fa-user fa-2x"></i></a>

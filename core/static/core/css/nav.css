@@ -12,8 +12,11 @@
     padding-right: 10px;
 }
 
-@media only screen and (max-device-width:980px) {
+@media only screen and (max-device-width:992px) {
     body {
         font-size:120%;
+    }
+    .navbar-nav {
+        display: flex
     }
 }
