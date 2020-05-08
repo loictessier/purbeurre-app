@@ -6,3 +6,14 @@
     vertical-align: middle;
     display: table-cell
 }
+
+.nav-item {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+@media only screen and (max-device-width:980px) {
+    body {
+        font-size:120%;
+    }
+}
