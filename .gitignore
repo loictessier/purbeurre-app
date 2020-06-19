@@ -106,7 +106,8 @@ venv.bak/
 #vscode
 .vscode/
 
-# settings
-# settings.py
 media/avatars/*
 !media/avatars/default.jpg
+
+purbeurre/settings/production.py
+purbeurre/staticfiles/
