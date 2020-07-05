@@ -4,10 +4,10 @@ services:
         image: postgres:10.5
         container_name: purbeurre-postgres
         ports:
-            - ${POSTGRES_HOST_PORT}:5432
+            - 15432:5432
         environment:
-            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-            - POSTGRES_DB=${POSTGRES_DB}
+            - POSTGRES_PASSWORD=adm_purbeurre
+            - POSTGRES_DB=purbeurre
         volumes:
             - purbeurre-postgres-data:/var/lib/postgresql/data
 
@@ -19,8 +19,8 @@ services:
         links:
             - postgres
         environment:
-            - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
-            - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+            - PGADMIN_DEFAULT_EMAIL=admin@purbeurre.db
+            - PGADMIN_DEFAULT_PASSWORD=adm_purbeurre
         volumes:
             - purbeurre-pgadmin-data:/var/lib/pgadmin
             
