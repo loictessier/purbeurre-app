@@ -81,7 +81,7 @@ class ResultsTest(TestCase):
         mommy.make(Product, id=55, name="Biscuit Bio", nutriscore="A", category=c2)
 
     def test_results_returns_products(self):
-        response = self.client.get(reverse('openfoodfacts:results'), {'search_input': 'Coca [E]'})
+        response = self.client.get(reverse('openfoodfacts:results', kwargs={'rating_filter': 4}), {'search_input': 'Coca [E]'})
         self.assertEqual(len(response.context['results']), 4)
         self.assertIn("Perrier", str(response.context['results'].values()))
         self.assertNotIn("Biscuit Bio", str(response.context['results'].values()))

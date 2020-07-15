@@ -24,8 +24,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="mb-4"> Vous pouvez remplacer cet aliment par : </h2>
+                    {% include "rating/rating-product-filter.html" %}
+                </div>
             </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="mb-4"> Vous pouvez remplacer cet aliment par : </h2>
+                </div>
             </div>
             <div class="row mt-5">
                 {% for product in results %}
@@ -37,6 +42,7 @@
                         </div>
                         <div id='product_name'>{{ product.name|add:" ["|add:product.nutriscore|upper|add:"]" }}</div>
                     </a>
+                    <div>Note moyenne des utilisateurs: {{ product.avg_rating|default:"Aucune note enregistrée" }}</div>
                     {% if request.user.is_authenticated %}
                         {% if product.pk|check_product_favorite:request.user %}
                             <a class="set_favorite" href="{% url 'favorite:remove_favorite' product_id=product.pk %}"><i class="fas fa-trash-alt"></i> Retirer des favoris</a>
