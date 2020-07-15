@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'favorite',
     'user',
     'core',
+    'rating',
 ]
 
 MIDDLEWARE = [

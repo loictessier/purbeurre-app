@@ -1,0 +1,15 @@
+<div class="container my-auto">
+    <form action="{% url 'openfoodfacts:results_with_filter' search_input=search.name %}" method="POST">
+        {% csrf_token %}
+        <label for="rating-filter">Filtrer les produits :</label>
+        <select name="rating-filter" id="rating-filter">
+            <option value="0" {% if '0' == rating_filter %}selected="selected"{% endif %}>Tous</option>
+            <option value="1" {% if '1' == rating_filter %}selected="selected"{% endif %}>Note moyenne >= 1</option>
+            <option value="2" {% if '2' == rating_filter %}selected="selected"{% endif %}>Note moyenne >= 2</option>
+            <option value="3" {% if '3' == rating_filter %}selected="selected"{% endif %}>Note moyenne >= 3</option>
+            <option value="4" {% if '4' == rating_filter %}selected="selected"{% endif %}>Note moyenne >= 4</option>
+            <option value="5" {% if '5' == rating_filter %}selected="selected"{% endif %}>Note moyenne >= 5</option>
+        </select>
+        <button type="submit" class="btn btn-secondary" href="">Appliquer le filtre</button>
+    </form>
+</div>
