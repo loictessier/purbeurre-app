@@ -5,6 +5,7 @@ from model_mommy import mommy
 
 from .views import index, get_products
 from .models import Category, Product
+from rating.models import RatingProduct
 
 import json
 
@@ -72,17 +73,33 @@ class ResultsTest(TestCase):
 
     def setUp(self):
         self.client = Client()
+        # create products
         c1 = mommy.make(Category, id=1, name="Boissons gazeuses")
         c2 = mommy.make(Category, id=2, name="Gateaux")
-        mommy.make(Product, id=1, name="coca", nutriscore="E", category=c1)
-        mommy.make(Product, id=30, name="Perrier", nutriscore="A", category=c1)
-        mommy.make(Product, id=15, name="Badoit", nutriscore="A", category=c1)
-        mommy.make(Product, id=11, name="orangina", nutriscore="E", category=c1)
-        mommy.make(Product, id=55, name="Biscuit Bio", nutriscore="A", category=c2)
+        p1 = mommy.make(Product, id=1, name="coca", nutriscore="E", category=c1)
+        p2 = mommy.make(Product, id=30, name="Perrier", nutriscore="A", category=c1)
+        p3 = mommy.make(Product, id=15, name="Badoit", nutriscore="A", category=c1)
+        p4 = mommy.make(Product, id=11, name="orangina", nutriscore="E", category=c1)
+        p5 = mommy.make(Product, id=55, name="Biscuit Bio", nutriscore="A", category=c2)
+        p6 = mommy.make(Product, id=67, name="Gateau sans gluten", nutriscore="A", category=c2)
+        # create ratings
+        mommy.make(RatingProduct, product=p1, rating=1)
+        mommy.make(RatingProduct, product=p2, rating=4)
+        mommy.make(RatingProduct, product=p3, rating=3)
+        mommy.make(RatingProduct, product=p4, rating=2)
+        mommy.make(RatingProduct, product=p5, rating=4)
+        mommy.make(RatingProduct, product=p6, rating=5)
 
     def test_results_returns_products(self):
-        response = self.client.get(reverse('openfoodfacts:results', kwargs={'rating_filter': 4}), {'search_input': 'Coca [E]'})
+        response = self.client.get(reverse('openfoodfacts:results'), {'search_input': 'Coca [E]'})
         self.assertEqual(len(response.context['results']), 4)
+        self.assertIn("Perrier", str(response.context['results'].values()))
+        self.assertNotIn("Biscuit Bio", str(response.context['results'].values()))
+        self.assertTrue(response.context['status'])
+
+    def test_results_returns_products_with_filter(self):
+        response = self.client.get(reverse('openfoodfacts:results', kwargs={'rating_filter': 3}), {'search_input': 'Coca [E]'})
+        self.assertEqual(len(response.context['results']), 2)
         self.assertIn("Perrier", str(response.context['results'].values()))
         self.assertNotIn("Biscuit Bio", str(response.context['results'].values()))
         self.assertTrue(response.context['status'])
