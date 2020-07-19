@@ -26,6 +26,7 @@ urlpatterns = [
     path('', include('openfoodfacts.urls', namespace='openfoodfacts')),
     path('user/', include('user.urls', namespace='user')),
     path('favorites/', include('favorite.urls', namespace='favorite')),
+    path('rating/', include('rating.urls', namespace='rating')),
     path('legals/', include('core.urls', namespace='core')),
     path('content/', admin.site.urls),
 ]

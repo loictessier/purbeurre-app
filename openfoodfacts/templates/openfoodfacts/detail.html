@@ -26,6 +26,10 @@
                 </div>
                 <div class="col-lg-6 mx-auto">
                     <img src="{% static 'openfoodfacts/img/nutriscore/detail/'|add:result.nutriscore|add:'.svg' %}">
+                    {% if request.user.is_authenticated %}
+                        {% include "rating/rating-product.html" %}
+                    {% endif %}
+                    <p>Note moyenne des utilisateurs: {{ result.avg_rating|default:"Aucune note enregistrée" }}</p>
                 </div>
             </div>
             <div class="row">

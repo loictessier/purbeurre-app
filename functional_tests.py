@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import Select
 import time
 import unittest
 
@@ -77,6 +78,17 @@ class SearchSubstituteTest(unittest.TestCase):
         product_name = (self.browser
                         .find_element_by_class_name('search_title').text)
         self.assertIn(product_name.upper(), search_first_result_displayed_name)
+
+        # the user rate the product with 5 and save
+        rating_select = Select(self.browser.find_element_by_id('rating-product'))
+        rating_select.select_by_visible_text('5')
+        rating_save_button = self.browser.find_element_by_id('rating-save-button')
+        rating_save_button.click()
+        time.sleep(1)
+
+        # the user checks the rating is updated
+        rating_select = Select(self.browser.find_element_by_id('rating-product'))
+        self.assertEqual(rating_select.first_selected_option.text, '5')
 
         # the user click on the save button
         save_button = self.browser.find_element_by_class_name('set_favorite')
