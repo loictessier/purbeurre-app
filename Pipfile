@@ -15,6 +15,7 @@ coverage = "*"
 model-mommy = "*"
 gunicorn = "*"
 django-heroku = "*"
+flake8 = "*"
 
 [dev-packages]
 

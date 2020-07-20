@@ -3,6 +3,7 @@ from django.db import models
 from user.models import Profile
 from openfoodfacts.models import Product
 
+
 # Create your models here.
 class RatingProduct(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)

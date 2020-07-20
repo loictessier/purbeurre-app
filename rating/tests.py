@@ -8,6 +8,7 @@ from openfoodfacts.models import Product
 from user.models import Profile
 from django.contrib.auth.models import User
 
+
 # Test views
 class AddRatingProductTest(TestCase):
 
@@ -45,6 +46,7 @@ class AddRatingProductTest(TestCase):
         response = self.client.get(reverse('rating:add_rating_product', kwargs={'product_id': 9, 'rating': 4}))
         content = json.loads(response.content)
         self.assertEqual(content['status'], 500)
+
 
 class RemoveRatingProductTest(TestCase):
 
@@ -85,6 +87,7 @@ class RemoveRatingProductTest(TestCase):
         content = json.loads(response.content)
         self.assertEqual(content['status'], 500)
 
+
 # Test models
 class RatingProductTest(TestCase):
 
@@ -93,4 +96,3 @@ class RatingProductTest(TestCase):
         new_ratingproduct = mommy.make(RatingProduct, product=new_product)
         self.assertTrue(isinstance(new_ratingproduct, RatingProduct))
         self.assertEqual(new_ratingproduct.product.name, new_product.name)
-

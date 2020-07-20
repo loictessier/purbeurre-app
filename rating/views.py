@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.http import JsonResponse
 
 from user.models import Profile
 from rating.models import RatingProduct
 from openfoodfacts.models import Product
+
 
 # Create your views here.
 def post_rating_product(request, product_id):
@@ -15,6 +16,7 @@ def post_rating_product(request, product_id):
             remove_rating_product(request, product_id)
 
     return redirect('openfoodfacts:detail', product_id=product_id)
+
 
 def add_rating_product(request, product_id, rating):
     if request.user.is_authenticated:
@@ -46,7 +48,7 @@ def remove_rating_product(request, product_id):
             rating_product = current_profile.ratingproduct_set.filter(product=rated_product)
             rating_product.delete()
             status = 200
-            res="La note a été supprimée"
+            res = "La note a été supprimée"
         except Exception:
             status = 500
             res = "Erreur lors de la suppression de la note"

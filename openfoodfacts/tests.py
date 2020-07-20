@@ -98,7 +98,8 @@ class ResultsTest(TestCase):
         self.assertTrue(response.context['status'])
 
     def test_results_returns_products_with_filter(self):
-        response = self.client.get(reverse('openfoodfacts:results', kwargs={'rating_filter': 3}), {'search_input': 'Coca [E]'})
+        response = self.client.get(reverse('openfoodfacts:results', kwargs={'rating_filter': 3}),
+                                   {'search_input': 'Coca [E]'})
         self.assertEqual(len(response.context['results']), 2)
         self.assertIn("Perrier", str(response.context['results'].values()))
         self.assertNotIn("Biscuit Bio", str(response.context['results'].values()))

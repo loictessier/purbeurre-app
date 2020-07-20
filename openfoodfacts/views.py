@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from django.db.models import Avg
 from django.db.models.functions import Coalesce
@@ -54,7 +54,8 @@ def results(request, rating_filter=0):
         if search_product:
             products = (Product.objects.annotate(avg_rating=Coalesce(Avg('ratingproduct__rating'), 0))
                         .filter(category__id=search_product[0]['category'], avg_rating__gte=rating_filter)
-                        .order_by('-avg_rating', 'nutriscore', 'popularity').values('name', 'nutriscore', 'pk', 'img_url', 'avg_rating')[:12])
+                        .order_by('-avg_rating', 'nutriscore', 'popularity')
+                        .values('name', 'nutriscore', 'pk', 'img_url', 'avg_rating')[:12])
             search_product_status = True
             search_product = search_product[0]
         else:
@@ -64,7 +65,10 @@ def results(request, rating_filter=0):
 
     # return results template with substitute liste as results
     return render(request, 'openfoodfacts/results.html',
-                  {'status': search_product_status, 'search': search_product, 'results': products, 'rating_filter': rating_filter})
+                  {'status': search_product_status,
+                   'search': search_product,
+                   'results': products,
+                   'rating_filter': rating_filter})
 
 
 def product_detail(request, product_id):
@@ -81,4 +85,3 @@ def product_detail(request, product_id):
         raise Http404
 
     return render(request, 'openfoodfacts/detail.html', {'result': product})
-
